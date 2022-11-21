@@ -348,11 +348,11 @@ class CombineToolBase:
                     newline = line
                     if line.startswith('combine'): newline = self.pre_cmd + line.replace('combine', './combine', 1)
                     # Are we asking for a random seed?
-                    if re.search('-s +-1', line):
+                    if re.search('-s +-1', newline):
                         # Generate a new random seed
                         rseed = random.randint(1000,1000000)
                         # Update the seed on the combine call
-                        re.sub('-s +-1', '-s {}'.format(rseed), line)
+                        re.sub('-s +-1', '-s {}'.format(rseed), newline)
                     wsp = str(self.extract_workspace_arg(newline.split()))
 
                     newline = newline.replace(wsp, os.path.basename(wsp))
