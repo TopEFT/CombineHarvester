@@ -2,7 +2,6 @@ import os
 import stat
 from functools import partial
 from multiprocessing import Pool
-import random
 
 DRY_RUN = False
 
@@ -348,10 +347,12 @@ class CombineToolBase:
                     if line.startswith('combine'): newline = self.pre_cmd + line.replace('combine', './combine', 1)
                     # Are we asking for a random seed?
                     if '-s -1' in line:
+                        import random
+                        import re
                         # Generate a new random seed
                         rseed = random.randint(1000,1000000)
                         # Update the seed on the combine call
-                        line.replace('-s -1', '-s {}'.format(rseed))
+                        re.sub('-s +-1', '-s {}'.format(1000), line)
                     wsp = str(self.extract_workspace_arg(newline.split()))
 
                     newline = newline.replace(wsp, os.path.basename(wsp))
