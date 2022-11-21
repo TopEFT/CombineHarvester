@@ -352,7 +352,7 @@ class CombineToolBase:
                         # Generate a new random seed
                         rseed = random.randint(1000,1000000)
                         # Update the seed on the combine call
-                        re.sub('-s +-1', '-s {}'.format(rseed), newline)
+                        newline = re.sub('-s +-1', '-s {}'.format(rseed), newline)
                     wsp = str(self.extract_workspace_arg(newline.split()))
 
                     newline = newline.replace(wsp, os.path.basename(wsp))
