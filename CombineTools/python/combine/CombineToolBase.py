@@ -2,6 +2,8 @@ import os
 import stat
 from functools import partial
 from multiprocessing import Pool
+import re
+import random
 
 DRY_RUN = False
 
@@ -346,9 +348,7 @@ class CombineToolBase:
                     newline = line
                     if line.startswith('combine'): newline = self.pre_cmd + line.replace('combine', './combine', 1)
                     # Are we asking for a random seed?
-                    if '-s -1' in line:
-                        import random
-                        import re
+                    if re.search('-s +-1', line):
                         # Generate a new random seed
                         rseed = random.randint(1000,1000000)
                         # Update the seed on the combine call
